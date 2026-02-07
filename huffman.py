@@ -133,8 +133,10 @@ class HuffmanCoding:
 
         compression_ratio = new_bits / old_bits if old_bits else 0
         space_saving = 1 - compression_ratio
-        print(f"Old Data: ({old_bits} bits)\n{self.original_data[:length]}{'...' if len(self.original_data) >= length else ''}\n")
-        print(f"New Data: ({new_bits} bits)\n{self.new_data[:length]}{'...' if len(self.new_data) >= length else ''}\n")
+        print(f"Original data: ({old_bits} bits)\n{self.original_data[:length]}{'...' if len(self.original_data) >= length else ''}\n")
+        print(f"Compressed data: ({new_bits} bits)\n{self.new_data[:length]}{'...' if len(self.new_data) >= length else ''}\n")
+        print(f"Compressed data decoded:\n{huffman_coding.generate_decode()[:length]}{'...' if len(self.new_data) >= length else ''}\n")
+
         print(f"Compression ratio: {compression_ratio:.4f}")
         print(f"Space saved: {space_saving*100:.2f}%")
         return ""
@@ -161,6 +163,6 @@ if __name__ == '__main__':
 
     print(huffman_coding)
 
-    huffman_coding.print_symbol_frequency()
+    # huffman_coding.print_symbol_frequency()
 
-    print(huffman_coding.generate_decode() == huffman_coding.original_data)
+    # print(huffman_coding.generate_decode() == huffman_coding.original_data)
