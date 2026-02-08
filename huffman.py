@@ -40,30 +40,76 @@ class MinHeap:
 
 class HuffmanCoding:
     def __init__(self, data):
+        self.output_length = 1000
         self.original_data = data
-        self.frequency = { sym: data.count(sym) for sym in data }
+        self.frequency = {}
+        total = len(data)
+        if total:
+            bar_width = 30
+            for i, sym in enumerate(data, start=1):
+                self.frequency[sym] = self.frequency.get(sym, 0) + 1
+                if i == total or i % 1000 == 0:
+                    filled = int(bar_width * i / total)
+                    bar = "#" * filled + "-" * (bar_width - filled)
+                    percent = (i / total) * 100
+                    sys.stdout.write(f"\rCounting symbols: [{bar}] {percent:6.2f}%")
+                    sys.stdout.flush()
+            sys.stdout.write("\n")
         self.minheap = MinHeap()
-        for sym, freq in self.frequency.items():
-            self.minheap.push(Node(sym, freq))
+        unique_total = len(self.frequency)
+        if unique_total:
+            bar_width = 30
+            for i, (sym, freq) in enumerate(self.frequency.items(), start=1):
+                self.minheap.push(Node(sym, freq))
+                if i == unique_total or i % 200 == 0:
+                    filled = int(bar_width * i / unique_total)
+                    bar = "#" * filled + "-" * (bar_width - filled)
+                    percent = (i / unique_total) * 100
+                    sys.stdout.write(f"\rBuilding heap:   [{bar}] {percent:6.2f}%")
+                    sys.stdout.flush()
+            sys.stdout.write("\n")
 
         self.huffman_tree = self.build_huffman_tree()
         self.encodings = self.generate_encoding()
         self.new_data = self.compress_data()
     
     def build_huffman_tree(self) -> Node:
+        total_merges = self.minheap.size() - 1
+        merges_done = 0
+        bar_width = 30
         while self.minheap.size() > 1:
             first_least_sym = self.minheap.pop()
             second_least_sym = self.minheap.pop()
             new_node = Node("", first_least_sym.freq + second_least_sym.freq, first_least_sym, second_least_sym)
             self.minheap.push(new_node)
+            merges_done += 1
+            if merges_done == total_merges or merges_done % 200 == 0:
+                filled = int(bar_width * merges_done / max(total_merges, 1))
+                bar = "#" * filled + "-" * (bar_width - filled)
+                percent = (merges_done / max(total_merges, 1)) * 100
+                sys.stdout.write(f"\rBuilding tree:  [{bar}] {percent:6.2f}%")
+                sys.stdout.flush()
+        if total_merges > 0:
+            sys.stdout.write("\n")
         return self.minheap.pop()
     
     def compress_data(self) -> str: # requires huffman tree and syms
         new_data = ""
+        total = len(self.original_data)
+        if total == 0:
+            return ""
 
-        for sym in self.original_data:
+        bar_width = 30
+        for i, sym in enumerate(self.original_data, start=1):
             new_data += self.encodings[sym]
-        
+            if i == total or i % 500 == 0:
+                filled = int(bar_width * i / total)
+                bar = "#" * filled + "-" * (bar_width - filled)
+                percent = (i / total) * 100
+                sys.stdout.write(f"\rCompressing: [{bar}] {percent:6.2f}%")
+                sys.stdout.flush()
+
+        sys.stdout.write("\n")
         return new_data
 
     def generate_encoding(self) -> dict:
@@ -127,16 +173,18 @@ class HuffmanCoding:
                 print(f"{freq} : \'newline\'")
 
     def __str__(self):
-        length = 100
+        length = self.output_length
         old_bits = len(self.original_data) * 8
         new_bits = len(self.new_data)
 
         compression_ratio = new_bits / old_bits if old_bits else 0
         space_saving = 1 - compression_ratio
-        print(f"Original data: ({old_bits} bits)\n{self.original_data[:length]}{'...' if len(self.original_data) >= length else ''}\n")
-        print(f"Compressed data: ({new_bits} bits)\n{self.new_data[:length]}{'...' if len(self.new_data) >= length else ''}\n")
+        print(f"Original data: ({old_bits:,} binary digits)\n{self.original_data[:length]}{'...' if len(self.original_data) >= length else ''}\n")
+        print("----------------------------------------------")
+        print(f"Compressed data: ({new_bits:,} binary digits)\n{self.new_data[:length]}{'...' if len(self.new_data) >= length else ''}\n")
+        print("----------------------------------------------")
         print(f"Compressed data decoded:\n{huffman_coding.generate_decode()[:length]}{'...' if len(self.new_data) >= length else ''}\n")
-
+        print("----------------------------------------------")
         print(f"Compression ratio: {compression_ratio:.4f}")
         print(f"Space saved: {space_saving*100:.2f}%")
         return ""
