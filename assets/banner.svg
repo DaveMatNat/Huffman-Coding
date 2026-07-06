@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" width="1200" height="260" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Huffman Coding — lossless compression from scratch">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1021"/><stop offset="1" stop-color="#161B33"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38BDF8"/><stop offset="0.5" stop-color="#A78BFA"/><stop offset="1" stop-color="#F472B6"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="260" rx="14" fill="url(#bg)"/>
+
+  <!-- faint binary-tree motif, right side -->
+  <g stroke="#2A3357" stroke-width="2" fill="none" opacity="0.6">
+    <circle cx="1080" cy="60" r="10"/>
+    <path d="M1080 70 L1040 110 M1080 70 L1120 110"/>
+    <circle cx="1040" cy="118" r="8"/><circle cx="1120" cy="118" r="8"/>
+    <path d="M1040 126 L1015 160 M1040 126 L1065 160 M1120 126 L1145 160"/>
+    <circle cx="1015" cy="168" r="6"/><circle cx="1065" cy="168" r="6"/><circle cx="1145" cy="168" r="6"/>
+  </g>
+  <g font-size="12" fill="#475569" font-family="'SFMono-Regular', Consolas, monospace">
+    <text x="1075" y="55">0</text><text x="1105" y="90">1</text>
+  </g>
+
+  <text x="60" y="90" font-size="44" font-weight="800" fill="url(#title)" filter="url(#glow)">Huffman Coding</text>
+  <text x="62" y="124" font-size="19" fill="#94A3B8" font-weight="500">A lossless text compressor, built from a min-heap up to a working encoder/decoder.</text>
+  <text x="62" y="150" font-size="14" fill="#64748B" letter-spacing="1.5">GREEDY ALGORITHMS · BINARY TREES · PREFIX-FREE CODES · PYTHON</text>
+
+  <!-- pipeline strip -->
+  <g font-size="13" font-weight="700" text-anchor="middle">
+    <g stroke="#334155" stroke-width="2.5">
+      <line x1="196" y1="205" x2="228" y2="205"/>
+      <line x1="404" y1="205" x2="436" y2="205"/>
+      <line x1="612" y1="205" x2="644" y2="205"/>
+      <line x1="820" y1="205" x2="852" y2="205"/>
+    </g>
+    <g fill="#334155">
+      <path d="M228 205 l-8 -5 v10 z"/><path d="M436 205 l-8 -5 v10 z"/>
+      <path d="M644 205 l-8 -5 v10 z"/><path d="M852 205 l-8 -5 v10 z"/>
+    </g>
+    <g>
+      <rect x="60" y="182" width="136" height="46" rx="9" fill="#0E1A2B" stroke="#38BDF8" stroke-width="2"/>
+      <text x="128" y="210" fill="#E2E8F0">Count freq.</text>
+    </g>
+    <g>
+      <rect x="268" y="182" width="136" height="46" rx="9" fill="#161327" stroke="#A78BFA" stroke-width="2"/>
+      <text x="336" y="210" fill="#E2E8F0">Min-heap</text>
+    </g>
+    <g>
+      <rect x="476" y="182" width="136" height="46" rx="9" fill="#0F2019" stroke="#34D399" stroke-width="2"/>
+      <text x="544" y="210" fill="#E2E8F0">Build tree</text>
+    </g>
+    <g>
+      <rect x="684" y="182" width="136" height="46" rx="9" fill="#231C0B" stroke="#FBBF24" stroke-width="2"/>
+      <text x="752" y="210" fill="#E2E8F0">Assign codes</text>
+    </g>
+    <g>
+      <rect x="892" y="182" width="136" height="46" rx="9" fill="#25131F" stroke="#F472B6" stroke-width="2"/>
+      <text x="960" y="210" fill="#E2E8F0">Compress</text>
+    </g>
+  </g>
+</svg>
